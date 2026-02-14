@@ -25,7 +25,7 @@ def get_api_root(request: Request):
 @app.get("/api/data")
 def get_sample_data():
     try:
-        with open(ddbb.txt) as FIN:
+        with open(os.path.join(os.path.dirname(__file__), 'ddbb.txt')) as FIN:
             ccc = ','.join(FIN.readlines())
         return {'data-txt': ccc}
     except Exception:
