@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 
 
@@ -7,6 +7,18 @@ app = FastAPI(
     description="test it",
     version="1.0.0",
 )
+
+
+@app.get("/rrroottt/", include_in_schema=False)
+def get_api_root(request: Request):
+    return {
+        'msg': 'Hello world',
+        'desc': 'Site root',
+        'root_path': request.scope.get('root_path'),
+        'os_path': os.getenv('PATH'),
+        'os_cwd': os.getenv('PWD'),
+        '__file__dir': os.path.dirname(__file__)
+    }
 
 
 @app.get("/api/data")
